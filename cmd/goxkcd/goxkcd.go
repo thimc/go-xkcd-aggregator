@@ -70,7 +70,13 @@ func main() {
 		close(resultch)
 
 	case "search":
-		entries, err := store.Search(args[1])
+		var searchTerm string
+		if len(args) > 1 {
+			searchTerm = args[1]
+		} else {
+			searchTerm = "-"
+		}
+		entries, err := store.Search(searchTerm)
 		if err != nil {
 			fmt.Fprintf(os.Stderr, "error: %s\n", err)
 			os.Exit(1)
